@@ -2,4 +2,4 @@ bastion_ami: ami-089a545a9ed9893b6
 
 region: us-east-2
 
-my_IP: 31.182.204.27/32
+my_IP:
