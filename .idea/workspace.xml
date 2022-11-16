@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62e55ed7-b9ca-440a-85da-7afce5bc90e3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vpc-setup.yml" beforeDir="false" afterPath="$PROJECT_DIR$/vpc-setup.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

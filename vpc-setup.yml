@@ -143,3 +143,17 @@
         - pub_RT_out.route_table.id
         - NATGW_out.nat_gateway_id
         - privRT_out.route_table.id
+    - name: setting facts
+      set_fact:
+        vpcid: "{{vpcout.vpc.id}}"
+        pubsub1: "{{pubsub1_out.subnet.id}}"
+        pubsub2: "{{pubsub2_out.subnet.id}}"
+        pubsub3: "{{pubsub3_out.subnet.id}}"
+        privsub1: "{{privsub1_out.subnet.id}}"
+        privsub2: "{{privsub2_out.subnet.id}}"
+        privsub3: "{{privsub3_out.subnet.id}}"
+        igwid: "{{igw_out.gateway_id}}"
+        pubRTid: "{{pub_RT_out.route_table.id}}"
+        NATgwid: "{{NATGW_out.nat_gateway_id}}"
+        privRTid: "{{privRT_out.route_table.id}}"
+        cacheable: yes
