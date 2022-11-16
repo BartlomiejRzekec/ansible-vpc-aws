@@ -130,7 +130,7 @@
 
     - name: ID's
       debug:
-        var: "{{itemki}}"
+        var: "{{item}}"
       loop:
         - vpcout.vpc.id
         - pubsub1_out.subnet.id
