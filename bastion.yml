@@ -30,7 +30,7 @@
             to_port: 22
             cidr_ip: "{{my_IP}}"
             rule_desc: allow ssh
-        register: bastionSG_out
+      register: bastionSG_out
 
     - name: creating bastion instance
       ec2:
