@@ -39,7 +39,7 @@
         vpc_subnet_id: "{{pubsub2}}"
         instance_type: t2.micro
         image: "{{bastion_ami}}"
-        group_id: "{{bastionSG_out.group_id}}
+        group_id: "{{bastionSG_out.group_id}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
