@@ -22,6 +22,7 @@
     - name: Creating bastion sec group
       ec2_group:
         name: bastion_sg
+        description: Allow ssh
         vpc_id: "{{vpcid}}"
         region: "{{region}}"
         rules:
