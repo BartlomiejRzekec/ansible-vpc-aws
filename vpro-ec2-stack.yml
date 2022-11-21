@@ -1,0 +1,21 @@
+- name: Creating bastion host
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: import vpro-stack vars
+      include_vars: vars/vpro-stack_setup
+    - name: import vpc-out vars
+      include_vars: vars/vpc_output_vars
+
+    - name: create key pair
+        ec2_key:
+          name: vprokey
+          region: "{{region}}"
+        register: vprokey_out
+    - name: save private key
+        copy:
+          content: "{{vprokey_out.key.private_key}}"
+          dest: "./vprokey.pem"
+          mode: 0600
+        when: vprokey_out.changed
