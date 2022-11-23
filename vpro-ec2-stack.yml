@@ -35,7 +35,7 @@
     - name: SG for vprofile stack
       ec2_group:
         name: vproStack-sg
-        description: allow ssh
+        description: allow ssh and 80
         region: "{{region}}"
         vpc_id: "{{vpcid}}"
         purge_rules: no
@@ -49,3 +49,13 @@
             to_port: 22
             group_id: "{{BastionSGid}}"
       register: vproStack-sg_out
+    - name: update SG for vprofile stack
+      ec2_group:
+        name: vproStack-sg
+        description: allow ssh and 80
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        purge_rules: no
+        rules:
+         - proto: all
+           group_id: "{{vproStack-sg_out.group_id}}"
