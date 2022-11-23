@@ -26,11 +26,11 @@
         description: allow 80
         region: "{{region}}"
         vpc_id: "{{vpcid}}"
-        rule:
-          proto: tcp
-          from_port: 80
-          to_port: 80
-          cidr_ip: 0.0.0.0/0
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
       register: vproLB-sg_out
     - name: SG for vprofile stack
       ec2_group:
