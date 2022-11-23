@@ -51,3 +51,10 @@
           Name: Bastion_host
           Project: Vprofile
       register: bastionHost_out
+
+    - name: insert bastionSG var to file
+      blockinfile:
+        path: vars/vpc_out_vars
+        backup: yes
+        block: |
+          BastionSGid: {{bastionSG_out.group_id}}
