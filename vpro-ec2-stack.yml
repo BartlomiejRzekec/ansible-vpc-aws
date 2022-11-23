@@ -9,16 +9,16 @@
       include_vars: vars/vpc_output_vars
 
     - name: create key pair
-        ec2_key:
-          name: vprokey
-          region: "{{region}}"
-        register: vprokey_out
+      ec2_key:
+        name: vprokey
+        region: "{{region}}"
+      register: vprokey_out
     - name: save private key
-        copy:
-          content: "{{vprokey_out.key.private_key}}"
-          dest: "./vprokey.pem"
-          mode: 0600
-        when: vprokey_out.changed
+      copy:
+        content: "{{vprokey_out.key.private_key}}"
+        dest: "./vprokey.pem"
+        mode: 0600
+      when: vprokey_out.changed
 
     - name: SG for Load Balancer
       ec2_group:
