@@ -19,3 +19,32 @@
           dest: "./vprokey.pem"
           mode: 0600
         when: vprokey_out.changed
+
+    - name: SG for Load Balancer
+      ec2_group:
+        name: vproLB-sg
+        description: allow 80
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        rule:
+          proto: tcp
+          from_port: 80
+          to_port: 80
+          cidr_ip: 0.0.0.0/0
+      register: vproLB-sg_out
+    - name: SG for vprofile stack
+      ec2_group:
+        name: vproStack-sg
+        description: allow ssh
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        rules:
+         -  proto: tcp
+            from_port: 80
+            to_port: 80
+            group_id: "{{vproLB-sg_out.group_id}}"
+         -  proto: tcp
+            from_port: 22
+            to_port: 22
+            group_id: "{{BastionSGid}}"
+      register: vproStack-sg_out
