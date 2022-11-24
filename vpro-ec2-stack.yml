@@ -150,3 +150,21 @@
           Name: db01
           Project: Vprofile
       register: db01_out
+
+    - local_action:
+        module: ec2_elb_lb
+        name: "vprofile_elb"
+        region: "{{region}}"
+        state: present
+        instance_ids:
+          - "{{web01_out.tagged_instances[0].id}}"
+        purge_instance_ids: true
+        security_group_ids: "{{vproLB-sg_out.group_id}}"
+        subnets:
+          - "{{pubsub1}}"
+          - "{{pubsub2}}"
+          - "{{pubsub3}}"
+        listeners:
+          - protocol: http
+            load_balancer_port: 80
+            instance_port: 80
