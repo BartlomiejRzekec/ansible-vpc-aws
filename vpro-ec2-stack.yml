@@ -93,6 +93,24 @@
           Project: Vprofile
         exact_count: 1
         count_tag:
-          Name: web01
+          Name: app01
           Project: Vprofile
       register: app01_out
+    - name: Creating Memcache instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub3}}"
+        instance_type: t2.micro
+        image: "{{memcache_ami}}"
+        group_id: "{{vproStack-sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: mc01
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: mc01
+          Project: Vprofile
+      register: mc01_out
