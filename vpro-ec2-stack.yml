@@ -114,3 +114,21 @@
           Name: mc01
           Project: Vprofile
       register: mc01_out
+    - name: Creating RabbitMQ instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub1}}"
+        instance_type: t2.micro
+        image: "{{rmq_ami}}"
+        group_id: "{{vproStack-sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: rmq01
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: rmq01
+          Project: Vprofile
+      register: rmq01_out
