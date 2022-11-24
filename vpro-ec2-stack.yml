@@ -132,3 +132,21 @@
           Name: rmq01
           Project: Vprofile
       register: rmq01_out
+    - name: Creating Mysql instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub1}}"
+        instance_type: t2.micro
+        image: "{{mysql_ami}}"
+        group_id: "{{vproStack-sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: db01
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: db01
+          Project: Vprofile
+      register: db01_out
