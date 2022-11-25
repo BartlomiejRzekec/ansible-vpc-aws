@@ -44,7 +44,7 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: Bastion_host
+          Name: "Bastion_host"
           Project: Vprofile
         exact_count: 1
         count_tag:
@@ -54,7 +54,7 @@
 
     - name: insert bastionSG var to file
       blockinfile:
-        path: vars/vpc_out_vars
+        path: vars/vpc_output_vars
         backup: yes
         block: |
           BastionSGid: {{bastionSG_out.group_id}}
