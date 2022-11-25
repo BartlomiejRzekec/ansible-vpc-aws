@@ -71,11 +71,11 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: web01
+          Name: "web01"
           Project: Vprofile
         exact_count: 1
         count_tag:
-          Name: web01
+          Name: "web01"
           Project: Vprofile
       register: web01_out
     - name: Creating Tomcat instance
@@ -89,11 +89,11 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: app01
+          Name: "app01"
           Project: Vprofile
         exact_count: 1
         count_tag:
-          Name: app01
+          Name: "app01"
           Project: Vprofile
       register: app01_out
     - name: Creating Memcache instance
@@ -107,11 +107,11 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: mc01
+          Name: "mc01"
           Project: Vprofile
         exact_count: 1
         count_tag:
-          Name: mc01
+          Name: "mc01"
           Project: Vprofile
       register: mc01_out
     - name: Creating RabbitMQ instance
@@ -125,11 +125,11 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: rmq01
+          Name: "rmq01"
           Project: Vprofile
         exact_count: 1
         count_tag:
-          Name: rmq01
+          Name: "rmq01"
           Project: Vprofile
       register: rmq01_out
     - name: Creating Mysql instance
@@ -143,11 +143,11 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: db01
+          Name: "db01"
           Project: Vprofile
         exact_count: 1
         count_tag:
-          Name: db01
+          Name: "db01"
           Project: Vprofile
       register: db01_out
 
