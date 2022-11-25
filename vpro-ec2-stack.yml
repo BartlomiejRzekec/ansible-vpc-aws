@@ -43,7 +43,7 @@
          -  proto: tcp
             from_port: 80
             to_port: 80
-            group_id: "{{vproLB-sg_out.group_id}}"
+            group_id: "{{vproLB_sg_out.group_id}}"
          -  proto: tcp
             from_port: 22
             to_port: 22
@@ -58,7 +58,7 @@
         purge_rules: no
         rules:
          - proto: all
-           group_id: "{{vproStack-sg_out.group_id}}"
+           group_id: "{{vproStack_sg_out.group_id}}"
 
     - name: Creating Nginx instance
       ec2:
@@ -67,7 +67,7 @@
         vpc_subnet_id: "{{privsub1}}"
         instance_type: t2.micro
         image: "{{nginx_ami}}"
-        group_id: "{{vproStack-sg_out.group_id}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -85,7 +85,7 @@
         vpc_subnet_id: "{{privsub2}}"
         instance_type: t2.micro
         image: "{{tomcat_ami}}"
-        group_id: "{{vproStack-sg_out.group_id}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -103,7 +103,7 @@
         vpc_subnet_id: "{{privsub3}}"
         instance_type: t2.micro
         image: "{{memcache_ami}}"
-        group_id: "{{vproStack-sg_out.group_id}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -121,7 +121,7 @@
         vpc_subnet_id: "{{privsub1}}"
         instance_type: t2.micro
         image: "{{rmq_ami}}"
-        group_id: "{{vproStack-sg_out.group_id}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -139,7 +139,7 @@
         vpc_subnet_id: "{{privsub1}}"
         instance_type: t2.micro
         image: "{{mysql_ami}}"
-        group_id: "{{vproStack-sg_out.group_id}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -159,7 +159,7 @@
         instance_ids:
           - "{{web01_out.tagged_instances[0].id}}"
         purge_instance_ids: true
-        security_group_ids: "{{vproLB-sg_out.group_id}}"
+        security_group_ids: "{{vproLB_sg_out.group_id}}"
         subnets:
           - "{{pubsub1}}"
           - "{{pubsub2}}"
