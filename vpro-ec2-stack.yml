@@ -153,7 +153,7 @@
 
     - local_action:
         module: ec2_elb_lb
-        name: "vprofile_elb"
+        name: "vprofile-elb"
         region: "{{region}}"
         state: present
         instance_ids:
