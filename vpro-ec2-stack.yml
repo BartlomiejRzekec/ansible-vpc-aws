@@ -192,4 +192,39 @@
       blockinfile:
         path: provision-stack/inventory-vpro
         block: |
-          web01 ansible_host={{web01_ip}}
+          web01 ansible_host={{web01_out.tagged_instances[0].private_ip}}
+          app01 ansible_host={{app01_out.tagged_instances[0].private_ip}}
+          mc01 ansible_host={{mc01_out.tagged_instances[0].private_ip}}
+          rmq01 ansible_host={{rmq01_out.tagged_instances[0].private_ip}}
+          db01 ansible_host={{db01_out.tagged_instances[0].private_ip}}
+          cntl ansible_host=127.0.0.1 ansible_connection=local
+
+          [websrvrgrp]
+          web01
+
+          [appsrvrgrp]
+          app01
+
+          [mcsrvrgrp]
+          mc01
+
+          [rmqsrvrgrp]
+          rmq01
+
+          [dbsrvrgrp]
+          db01
+
+          [controlsrvrgrp]
+          cntl
+
+          [stack_inst:children]
+          web01
+          app01
+          mc01
+          rmq01
+          db01
+
+          [stack_inst:vars]
+          ansible_user=ubuntu
+          ansible_ssh_private_key_file=vprokey.pem
+          #ansible_python_interpreter=/usr/bin/python3
