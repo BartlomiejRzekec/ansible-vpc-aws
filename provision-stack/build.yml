@@ -35,5 +35,5 @@
 
     - name: copy sql backup to files dir
       copy:
-        src: Vprofile-repo/src/main/resorces/db_backup.sql
+        src: Vprofile-repo/src/main/resources/db_backup.sql
         dest: files/db_backup.sql
