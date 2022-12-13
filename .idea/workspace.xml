@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62e55ed7-b9ca-440a-85da-7afce5bc90e3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/provision-stack/group_vars/dbsrvgrp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provision-stack/templates/application.j2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provision-stack/templates/nginxvpro.j2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/provision-stack/build.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
