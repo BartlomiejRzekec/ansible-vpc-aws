@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62e55ed7-b9ca-440a-85da-7afce5bc90e3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/provision-stack/set_hosts_ip_map.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/provision-stack/db.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
