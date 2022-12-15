@@ -1,0 +1,37 @@
+- name: install memcache
+  hosts: mcsrvrgrp
+  gather_facts: no
+  tasks:
+    - name: Install memcache
+      apt:
+        name: memcached
+        state: present
+        update_cache: yes
+        cache_valid_time: 86400
+      tags:
+        - package
+
+    - name: Start memache
+      service:
+        name: memcached
+        state: restarted
+        enabled: yes
+      tags:
+        - svc
+
+    - name: Enable remote login
+      lineinfile:
+        path: /etc/memcached.conf
+        regexp: '^-l '
+        line: '-l 0.0.0.0'
+        backup: yes
+      notify:
+        - Restart memchached
+      tags:
+        - conf
+
+  handlers:
+    - name: Restart memcached
+      service:
+        name: memcached
+        state: restarted
