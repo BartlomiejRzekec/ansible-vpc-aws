@@ -1,0 +1,5 @@
+bastion_ami: ami-089a545a9ed9893b6
+
+region: eu-central-1
+
+my_IP:

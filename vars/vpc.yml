@@ -1,0 +1,22 @@
+vpc_name: "Vprofile-vpc"
+
+# VPC Range
+vpcCidr: '172.20.0.0/16'
+
+# Subnets
+pubSub1: 172.20.1.0/24
+pubSub2: 172.20.2.0/24
+pubSub3: 172.20.3.0/24
+privSub1: 172.20.4.0/24
+privSub2: 172.20.5.0/24
+privSub3: 172.20.6.0/24
+
+# Region Name
+region: "eu-central-1"
+
+# Zone Names
+zone1: eu-central-1a
+zone2: eu-central-1b
+zone3: eu-central-1c
+
+state: present
