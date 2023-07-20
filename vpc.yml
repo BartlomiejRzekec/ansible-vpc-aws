@@ -16,5 +16,5 @@ tasks:
       state: "{{state}}"
     register: vpcout
   - debug:
-      var: vpcou
+      var: vpcout
      
