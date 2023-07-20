@@ -2,19 +2,19 @@ hosts: localhost
 connection: local
 gather_facts: False
 tasks:
- - name: Import vars
-   include_vars: vars/vpc.yml
+  - name: Import vars
+    include_vars: vars/vpc.yml
 
- - name: Set vpc
-   amazon.aws.ec2_vpc_net:
-     name: "{{vpc_name}}"
-        cidr_block: "{{vpcCidr}}"
-        region: "{{region}}"
-        dns_support: yes
-        dns_hostnames: yes
-        tenancy: default
-        state: "{{state}}"
-      register: vpcout
-    - debug:
-        var: vpcou
+  - name: Set vpc
+    amazon.aws.ec2_vpc_net:
+      name: "{{vpc_name}}"
+      cidr_block: "{{vpcCidr}}"
+      region: "{{region}}"
+      dns_support: yes
+      dns_hostnames: yes
+      tenancy: default
+      state: "{{state}}"
+    register: vpcout
+  - debug:
+      var: vpcou
      
