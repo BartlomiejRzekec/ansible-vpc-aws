@@ -35,7 +35,7 @@
       register: bastionSG_out
 
     - name: creating bastion instance
-      ec2:
+      ec2_instance:
         key_name: bastion_key
         region: "{{region}}"
         vpc_subnet_id: "{{pubsub2}}"
