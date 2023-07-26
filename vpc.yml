@@ -118,7 +118,7 @@
         - privsub3_out.subnet.id
         - igw_out.gateway_id
         - pub_RT_out.route_table.id
-        - NATGW_out.nat_gateway_id
+        # - NATGW_out.nat_gateway_id
         - privRT_out.route_table.id
     - name: setting facts
       set_fact:
@@ -131,11 +131,11 @@
         privsub3: "{{privsub3_out.subnet.id}}"
         igwid: "{{igw_out.gateway_id}}"
         pubRTid: "{{pub_RT_out.route_table.id}}"
-        NATgwid: "{{NATGW_out.nat_gateway_id}}"
+        # NATgwid: "{{NATGW_out.nat_gateway_id}}"
         privRTid: "{{privRT_out.route_table.id}}"
         cacheable: yes
 
     - name: Store ids vars to file
       copy:
-        content: "vpcid: {{vpcout.vpc.id}}\npubsub1: {{pubsub1_out.subnet.id}}\npubsub2: {{pubsub2_out.subnet.id}}\npubsub3: {{pubsub3_out.subnet.id}}\nprivsub1: {{privsub1_out.subnet.id}}\nprivsub2: {{privsub2_out.subnet.id}}\nprivsub3: {{privsub3_out.subnet.id}}\nigwid: {{igw_out.gateway_id}}\npubRTid: {{pub_RT_out.route_table.id}}\nNATgwid: {{NATGW_out.nat_gateway_id}}\nprivRTid: {{privRT_out.route_table.id}}"
+        content: "vpcid: {{vpcout.vpc.id}}\npubsub1: {{pubsub1_out.subnet.id}}\npubsub2: {{pubsub2_out.subnet.id}}\npubsub3: {{pubsub3_out.subnet.id}}\nprivsub1: {{privsub1_out.subnet.id}}\nprivsub2: {{privsub2_out.subnet.id}}\nprivsub3: {{privsub3_out.subnet.id}}\nigwid: {{igw_out.gateway_id}}\npubRTid: {{pub_RT_out.route_table.id}}\nprivRTid: {{privRT_out.route_table.id}}"
         destination: vars/output_vars
