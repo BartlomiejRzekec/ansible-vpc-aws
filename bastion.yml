@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
     - name: import bastion vars
-      include_vars: vars/bastion,yml
+      include_vars: vars/bastion.yml
     - name: import vpc-out vars
       include_vars: vars/output_vars
 
