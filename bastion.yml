@@ -21,7 +21,7 @@
       when: key_out.changed
 
     - name: Creating bastion sec group
-      ec2_group:
+      amazon.aws.ec2_security_group:
         name: bastion_sg
         description: Allow ssh
         vpc_id: "{{vpcid}}"
