@@ -1,4 +1,4 @@
-bastion_ami: ami-089a545a9ed9893b6
+bastion_ami: ami-04e601abe3e1a910f
 
 region: eu-central-1
 

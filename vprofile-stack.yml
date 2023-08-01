@@ -1,0 +1,61 @@
+- name: Creating vprofie stack
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: import bastion vars
+      include_vars: vars/vprofile-setup.yml
+    - name: import vpc-out vars
+      include_vars: vars/output_vars
+
+    - name: create key pair
+      ec2_key:
+        name: vpro_key
+        region: "{{region}}"
+      register: key_out
+    - name: save private key
+      copy:
+        content: "{{key_out.key.private_key}}"
+        dest: "./vpro_key.pem"
+        mode: 0600
+      when: key_out.changed
+
+    - name: SG for Load Balancer
+      ec2_group:
+        name: vproLB-sg
+        description: allow 80
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+      register: vproLB_sg_out
+    - name: SG for vprofile stack
+      ec2_group:
+        name: vproStack-sg
+        description: allow ssh and 80
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        purge_rules: no
+        rules:
+         -  proto: tcp
+            from_port: 80
+            to_port: 80
+            group_id: "{{vproLB_sg_out.group_id}}"
+         -  proto: tcp
+            from_port: 22
+            to_port: 22
+            group_id: "{{BastionSGid}}"
+      register: vproStack_sg_out
+    - name: update SG for vprofile stack
+      ec2_group:
+        name: vproStack-sg
+        description: allow ssh and 80
+        region: "{{region}}"
+        vpc_id: "{{vpcid}}"
+        purge_rules: no
+        rules:
+         - proto: all
+           group_id: "{{vproStack_sg_out.group_id}}"

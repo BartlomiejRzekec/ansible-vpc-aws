@@ -1,8 +1,8 @@
-nginx_ami: ami-0a59f0e26c55590e9
-tomcat_ami: ami-0a59f0e26c55590e9
-memcache_ami: ami-0a59f0e26c55590e9
-rmq_ami: ami-0a59f0e26c55590e9
-mysql_ami: ami-0a59f0e26c55590e9
+nginx_ami: ami-04e601abe3e1a910f
+tomcat_ami: ami-04e601abe3e1a910f
+memcache_ami: ami-04e601abe3e1a910f
+rmq_ami: ami-04e601abe3e1a910f
+mysql_ami: ami-04e601abe3e1a910f
 
 # Region Name
-region: "us-east-2"
+region: "eu-central-1"

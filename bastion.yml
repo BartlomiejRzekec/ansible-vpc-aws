@@ -52,3 +52,9 @@
           Name: Bastion_host
           Project: Vprofile
       register: bastionHost_out
+
+    - name: Update output vars
+      blockinfile:
+        path: vars/output_vars
+        block: | 
+          BastionSGid: "{{bastionSG_out.group_id}}"
