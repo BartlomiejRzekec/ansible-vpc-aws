@@ -59,3 +59,173 @@
         rules:
          - proto: all
            group_id: "{{vproStack_sg_out.group_id}}"
+
+    - name: Creating Nginx instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub1}}"
+        instance_type: t2.micro
+        image: "{{nginx_ami}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "web01"
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: "web01"
+          Project: Vprofile
+      register: web01_out
+    - name: Creating Tomcat instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub2}}"
+        instance_type: t2.micro
+        image: "{{tomcat_ami}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "app01"
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: "app01"
+          Project: Vprofile
+      register: app01_out
+    - name: Creating Memcache instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub3}}"
+        instance_type: t2.micro
+        image: "{{memcache_ami}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "mc01"
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: "mc01"
+          Project: Vprofile
+      register: mc01_out
+    - name: Creating RabbitMQ instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub1}}"
+        instance_type: t2.micro
+        image: "{{rmq_ami}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "rmq01"
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: "rmq01"
+          Project: Vprofile
+      register: rmq01_out
+    - name: Creating Mysql instance
+      ec2:
+        key_name: vprokey
+        region: "{{region}}"
+        vpc_subnet_id: "{{privsub1}}"
+        instance_type: t2.micro
+        image: "{{mysql_ami}}"
+        group_id: "{{vproStack_sg_out.group_id}}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "db01"
+          Project: Vprofile
+        exact_count: 1
+        count_tag:
+          Name: "db01"
+          Project: Vprofile
+      register: db01_out
+
+    - local_action:
+        module: ec2_elb_lb
+        name: "vprofile-elb"
+        region: "{{region}}"
+        state: present
+        instance_ids:
+          - "{{web01_out.tagged_instances[0].id}}"
+        purge_instance_ids: true
+        security_group_ids: "{{vproLB_sg_out.group_id}}"
+        subnets:
+          - "{{pubsub1}}"
+          - "{{pubsub2}}"
+          - "{{pubsub3}}"
+        listeners:
+          - protocol: http
+            load_balancer_port: 80
+            instance_port: 80
+
+    - debug:
+        var: db01_out
+
+    - name: insert private ips to file
+      blockinfile:
+        path: provision-stack\group_vars\hosts_ip
+        block: | 
+          web01_ip: {{web01_out.tagged_instances[0].private_ip}}
+          app01_ip: {{app01_out.tagged_instances[0].private_ip}}
+          mc01_ip: {{mc01_out.tagged_instances[0].private_ip}}
+          rmq01_ip: {{rmq01_out.tagged_instances[0].private_ip}}
+          db01_ip: {{db01_out.tagged_instances[0].private_ip}}
+
+    - name: Copy ssh key
+      copy:
+        src: ./vpro_key.pem
+        dest: provision-stack/vpro_key.pem
+        mode: '0400'
+
+    - name: update inventory file
+      blockinfile:
+        path: provision-stack/inventory-vpro
+        block: |
+          web01 ansible_host={{web01_out.tagged_instances[0].private_ip}}
+          app01 ansible_host={{app01_out.tagged_instances[0].private_ip}}
+          mc01 ansible_host={{mc01_out.tagged_instances[0].private_ip}}
+          rmq01 ansible_host={{rmq01_out.tagged_instances[0].private_ip}}
+          db01 ansible_host={{db01_out.tagged_instances[0].private_ip}}
+          cntl ansible_host=127.0.0.1 ansible_connection=local
+
+          [websrvrgrp]
+          web01
+
+          [appsrvrgrp]
+          app01
+
+          [mcsrvrgrp]
+          mc01
+
+          [rmqsrvrgrp]
+          rmq01
+
+          [dbsrvrgrp]
+          db01
+
+          [controlsrvrgrp]
+          cntl
+
+          [stack_inst:children]
+          web01
+          app01
+          mc01
+          rmq01
+          db01
+
+          [stack_inst:vars]
+          ansible_user=ubuntu
+          ansible_ssh_private_key_file=vprokey.pem
+          #ansible_python_interpreter=/usr/bin/python3
+        
